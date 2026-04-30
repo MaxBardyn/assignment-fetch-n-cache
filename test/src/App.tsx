@@ -1,8 +1,7 @@
+import { CharactersPage } from './pages/characters-page/CharactersPage'
 
 function App() {
-  return (
-<></>
-  );
+  return <CharactersPage />
 }
 
-export default App;
+export default App
