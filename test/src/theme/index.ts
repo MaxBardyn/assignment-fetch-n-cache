@@ -52,6 +52,7 @@ export const theme = createTheme({
         body: {
           minHeight: '100vh',
           margin: 0,
+          backgroundColor: '#FFFFFF',
           color: colors.textPrimary,
         },
         '#root': {

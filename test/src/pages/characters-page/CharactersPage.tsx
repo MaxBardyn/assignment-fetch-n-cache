@@ -1,20 +1,20 @@
-import { Stack, Typography } from '@mui/material'
-import { PageContainer } from '../../shared/ui/PageContainer'
+import { Stack } from "@mui/material";
+import { useCharacterQuery } from "../../characters/hooks/useCharacterQuery";
+import { PageContainer } from "../../shared/ui/PageContainer";
+import { CharacterPreviewCard } from "./CharacterPreviewCard";
 
 export function CharactersPage() {
+  const characterQuery = useCharacterQuery("3");
+
   return (
     <PageContainer>
-      <Stack spacing={2}>
-        <Typography variant="overline" color="primary">
-          Fetch 'n' Cache
-        </Typography>
-        <Typography variant="h1">Architecture foundation is ready</Typography>
-        <Typography color="text.secondary" sx={{ maxWidth: 720 }}>
-          The app now has separate layers for app providers, theme, pages, and
-          shared UI. The next step is to add the character domain with strict
-          types, query hooks, and cache-aware components.
-        </Typography>
+      <Stack spacing={4}>
+        <CharacterPreviewCard
+          character={characterQuery.data}
+          isLoading={characterQuery.isLoading}
+          isError={characterQuery.isError}
+        />
       </Stack>
     </PageContainer>
-  )
+  );
 }
