@@ -1,39 +1,158 @@
-import { Alert, CircularProgress, Stack, Typography } from '@mui/material'
-import type { Character } from '../../characters/types/character'
+import { Box, CircularProgress, Stack, Typography } from '@mui/material'
+import type { Character, CharacterStatus } from '../../characters/types/character'
 
 type CharacterPreviewCardProps = {
-  character: Character | undefined
+  character?: Character
   isLoading: boolean
-  isError: boolean
+  hasSearched: boolean
+}
+
+const placeholderImage = 'https://rickandmortyapi.com/api/character/avatar/19.jpeg'
+
+function getStatusColor(status?: CharacterStatus) {
+  const normalized = status?.toLowerCase()
+  if (normalized === 'dead') return 'error.main'
+  if (normalized === 'alive') return 'success.main'
+  return 'text.secondary'
+}
+
+function normalizeUnknown(value?: string) {
+  if (!value) return 'Unknown'
+  const normalized = value.trim().toLowerCase()
+  return normalized === 'unknown' || normalized === '' ? 'Unknown' : value
 }
 
 export function CharacterPreviewCard({
   character,
   isLoading,
-  isError,
+  hasSearched,
 }: CharacterPreviewCardProps) {
-  if (isLoading) {
-    return <CircularProgress size={24} />
-  }
+  const details = character
+    ? [
+        { label: 'Species', value: normalizeUnknown(character.species) },
+        { label: 'Type', value: normalizeUnknown(character.type) },
+        { label: 'Location', value: normalizeUnknown(character.location?.name) },
+        { label: 'Origin', value: normalizeUnknown(character.origin?.name) },
+      ]
+    : []
 
-  if (isError) {
-    return <Alert severity="error">Could not load character preview.</Alert>
-  }
-
-  if (!character) {
-    return <Typography color="text.secondary">No character selected.</Typography>
-  }
+  const showError = hasSearched && !isLoading && !character
 
   return (
-    <Stack spacing={1.5}>
-      <Typography variant="overline" color="primary">
-        Character preview
-      </Typography>
-      <Typography variant="h1">{character.name}</Typography>
-      <Typography color="text.secondary">{character.species}</Typography>
-      <Typography color={character.status === 'Dead' ? 'error' : 'text.primary'}>
-        {character.status}
-      </Typography>
+    <Stack direction={{ xs: 'column', md: 'row' }} spacing={2.5} sx={{ alignItems: 'flex-start' }}>
+      <Box
+        sx={{
+          width: 224,
+          minWidth: 224,
+          height: 224,
+          borderRadius: 1,
+          position: 'relative',
+          overflow: 'hidden',
+          backgroundColor: 'grey.100',
+          boxShadow: 3,
+          flexShrink: 0,
+        }}
+      >
+        {isLoading ? (
+          <Box
+            sx={{
+              width: '100%',
+              height: '100%',
+              borderRadius: 1,
+              backgroundColor: 'grey.200',
+              border: '1px solid',
+              borderColor: 'grey.300',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <CircularProgress size={42} />
+          </Box>
+        ) : character ? (
+          <Box
+            component="img"
+            src={character.image}
+            alt={character.name}
+            sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        ) : (
+          <Box
+            component="img"
+            src={placeholderImage}
+            alt="Character placeholder"
+            sx={{
+              width: '100%',
+              height: '100%',
+              borderRadius: 1,
+              backgroundColor: 'grey.200',
+              border: '1px solid',
+              borderColor: 'grey.300',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              transform: 'scale(1.8)',
+              transformOrigin: 'center',
+            }}
+          />
+        )}
+      </Box>
+
+      <Stack spacing={1.25} sx={{ minHeight: 224, justifyContent: 'center' }}>
+        {showError && (
+          <Typography variant="h1" sx={{ mb: 1, color: 'error.main' }}>
+            Character not found
+          </Typography>
+        )}
+
+        {character && (
+          <>
+            <Typography variant="h1" sx={{ mb: 1.25, color: 'text.primary' }}>
+              {character.name}
+            </Typography>
+
+            {details.map((item) => {
+              const isUnknown = item.value.trim().toLowerCase() === 'unknown'
+              return (
+                <Stack key={item.label} direction="row" spacing={0}>
+                  <Typography
+                    variant="body2"
+                    sx={{ width: 82, flexShrink: 0, color: 'text.secondary' }}
+                  >
+                    {item.label}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      fontWeight: 700,
+                      color: isUnknown ? 'text.secondary' : 'text.primary'
+                    }}
+                  >
+                    {item.value}
+                  </Typography>
+                </Stack>
+              )
+            })}
+
+            <Stack direction="row" spacing={0}>
+              <Typography
+                variant="body2"
+                sx={{ width: 82, flexShrink: 0, color: 'text.secondary' }}
+              >
+                Status
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontWeight: 700,
+                  color: getStatusColor(character.status)
+                }}
+              >
+                {normalizeUnknown(character.status)}
+              </Typography>
+            </Stack>
+          </>
+        )}
+      </Stack>
     </Stack>
   )
 }

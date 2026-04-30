@@ -5,5 +5,6 @@ export const useCharacterQuery = (characterId: string) =>
   useQuery({
     queryKey: ['character', characterId],
     queryFn: () => getCharacterById(Number(characterId)),
-    enabled: !!characterId
+    enabled: !!characterId,
+    retry: false,
   })
