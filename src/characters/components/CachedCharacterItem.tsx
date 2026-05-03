@@ -1,17 +1,22 @@
-import { Box, IconButton } from '@mui/material'
-import { useCharacterQuery } from '../../characters/hooks/useCharacterQuery'
+import { Box, IconButton } from "@mui/material";
+import { useCharacterQuery } from "../hooks/useCharacterQuery";
 
 type CachedCharacterItemProps = {
-  id: string
-  isSelected: boolean
-  onSelect: (id: string) => void
-  onRemove: (id: string) => void
-}
+  id: string;
+  isSelected: boolean;
+  onSelect: (id: string) => void;
+  onRemove: (id: string) => void;
+};
 
-export function CachedCharacterItem({ id, isSelected, onSelect, onRemove }: CachedCharacterItemProps) {
-  const { data } = useCharacterQuery(id)
+export function CachedCharacterItem({
+  id,
+  isSelected,
+  onSelect,
+  onRemove,
+}: CachedCharacterItemProps) {
+  const { data } = useCharacterQuery(id);
 
-  if (!data) return null
+  if (!data) return null;
 
   return (
     <Box

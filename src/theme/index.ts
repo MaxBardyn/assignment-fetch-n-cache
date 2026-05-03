@@ -1,13 +1,13 @@
-import { createTheme } from '@mui/material/styles'
+import { createTheme } from "@mui/material/styles";
 
 const colors = {
-  accent: '#0005FF',
-  textPrimary: '#000000',
-  textSecondary: '#B1B1B1',
-  error: '#FF0000',
-  success: '#00A340',
-  background: '#FFFFFF',
-} as const
+  accent: "#0005FF",
+  textPrimary: "#000000",
+  textSecondary: "#B1B1B1",
+  error: "#FF0000",
+  success: "#00A340",
+  background: "#FFFFFF",
+} as const;
 
 export const theme = createTheme({
   palette: {
@@ -21,9 +21,22 @@ export const theme = createTheme({
   typography: {
     fontFamily: '"PT Sans", Arial, sans-serif',
     h1: { fontSize: "32px", fontWeight: 700, lineHeight: 1, letterSpacing: 0 },
-    body1: { fontSize: "18px", fontWeight: 400, lineHeight: 1, letterSpacing: 0 },
-    body2: { fontSize: "16px", fontWeight: 400, lineHeight: 1, letterSpacing: 0 },
-    button: { textTransform: "none", fontFamily: '"PT Sans", Arial, sans-serif' },
+    body1: {
+      fontSize: "18px",
+      fontWeight: 400,
+      lineHeight: 1,
+      letterSpacing: 0,
+    },
+    body2: {
+      fontSize: "16px",
+      fontWeight: 400,
+      lineHeight: 1,
+      letterSpacing: 0,
+    },
+    button: {
+      textTransform: "none",
+      fontFamily: '"PT Sans", Arial, sans-serif',
+    },
   },
   components: {
     MuiCssBaseline: {
@@ -37,9 +50,9 @@ export const theme = createTheme({
           color: themeParam.palette.text.primary,
           fontFamily: themeParam.typography.fontFamily,
         },
-        "#root": { 
-          minHeight: "100vh", 
-          width: "100%", 
+        "#root": {
+          minHeight: "100vh",
+          width: "100%",
         },
         img: { display: "block", maxWidth: "100%" },
       }),
@@ -55,10 +68,10 @@ export const theme = createTheme({
         },
         input: {
           padding: 0,
-          '&::placeholder': {
+          "&::placeholder": {
             color: colors.textSecondary,
             opacity: 1,
-            fontStyle: 'normal',
+            fontStyle: "normal",
           },
         },
       },
