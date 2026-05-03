@@ -6,7 +6,7 @@ export function useSearchHistory() {
   const addToHistory = useCallback((id: string) => {
     setHistory((prev) => {
       if (prev.includes(id)) return prev
-      return [id, ...prev].slice(0, 5)
+      return [id, ...prev].slice(0, 3)
     })
   }, [])
 

@@ -17,45 +17,52 @@ export function CachedCharacterItem({ id, isSelected, onSelect, onRemove }: Cach
     <Box
       onClick={() => onSelect(id)}
       sx={{
-        position: 'relative',
+        position: "relative",
         width: 64,
         height: 64,
         borderRadius: 1,
-        cursor: 'pointer',
+        cursor: "pointer",
         flexShrink: 0,
-        outline: isSelected ? '2px solid' : '2px solid transparent',
-        outlineColor: isSelected ? 'primary.main' : 'transparent',
+        outline: isSelected ? "2px solid" : "2px solid transparent",
+        outlineColor: isSelected ? "primary.main" : "transparent",
         opacity: isSelected ? 1 : 0.4,
-        transition: 'opacity 0.15s',
-        '&:hover': { opacity: 1 },
-        '&:hover .remove-btn': { opacity: 1 },
+        transition: "opacity 0.15s",
+        "&:hover": { opacity: 1 },
+        "&:hover .remove-btn": { opacity: 1 },
       }}
     >
       <Box
         component="img"
+        fetchPriority="high"
         src={data.image}
         alt={data.name}
-        sx={{ width: '100%', height: '100%', borderRadius: 1, objectFit: 'cover', display: 'block' }}
+        sx={{
+          width: "100%",
+          height: "100%",
+          borderRadius: 1,
+          objectFit: "cover",
+          display: "block",
+        }}
       />
       <IconButton
         className="remove-btn"
         size="small"
         onClick={(e) => {
-          e.stopPropagation()
-          onRemove(id)
+          e.stopPropagation();
+          onRemove(id);
         }}
         sx={{
-          position: 'absolute',
+          position: "absolute",
           top: -8,
           right: -8,
           opacity: 0,
-          transition: 'opacity 0.15s',
+          transition: "opacity 0.15s",
           width: 18,
           height: 18,
-          backgroundColor: 'background.paper',
-          border: '1px solid',
-          borderColor: 'grey.300',
-          '&:hover': { backgroundColor: 'grey.100' },
+          backgroundColor: "background.paper",
+          border: "1px solid",
+          borderColor: "grey.300",
+          "&:hover": { backgroundColor: "grey.100" },
           p: 0,
         }}
       >
@@ -64,5 +71,5 @@ export function CachedCharacterItem({ id, isSelected, onSelect, onRemove }: Cach
         </svg>
       </IconButton>
     </Box>
-  )
+  );
 }
