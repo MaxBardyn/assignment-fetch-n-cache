@@ -27,11 +27,11 @@ export function CachedCharacterItem({
         height: 64,
         borderRadius: 1,
         cursor: "pointer",
-        flexShrink: 0,
-        outline: isSelected ? "2px solid" : "2px solid transparent",
-        outlineColor: isSelected ? "primary.main" : "transparent",
+        boxShadow: isSelected
+          ? (theme) => `0 0 0 2px ${theme.palette.primary.main}`
+          : undefined,
         opacity: isSelected ? 1 : 0.4,
-        transition: "opacity 0.15s",
+        transition: "opacity 0.15s, box-shadow 0.15s",
         "&:hover": { opacity: 1 },
         "&:hover .remove-btn": { opacity: 1 },
       }}
@@ -64,7 +64,7 @@ export function CachedCharacterItem({
           transition: "opacity 0.15s",
           width: 18,
           height: 18,
-          backgroundColor: "background.paper",
+          backgroundColor: "background.default",
           border: "1px solid",
           borderColor: "grey.300",
           "&:hover": { backgroundColor: "grey.100" },

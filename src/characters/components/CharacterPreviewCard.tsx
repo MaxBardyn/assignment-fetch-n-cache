@@ -5,7 +5,6 @@ import placeholderImage from "../../assets/images/character-icon.jpg";
 type CharacterPreviewCardProps = {
   character?: Character;
   isLoading: boolean;
-  hasSearched: boolean;
   error?: Error | null;
 };
 
@@ -29,7 +28,6 @@ function normalizeUnknown(value?: string) {
 export function CharacterPreviewCard({
   character,
   isLoading,
-  hasSearched,
   error,
 }: CharacterPreviewCardProps) {
   const details = character
@@ -49,8 +47,6 @@ export function CharacterPreviewCard({
       ]
     : [];
 
-  const showError = hasSearched && !isLoading && !character;
-
   return (
     <Stack
       direction={{ xs: "column", md: "row" }}
@@ -62,7 +58,6 @@ export function CharacterPreviewCard({
           width: 224,
           minWidth: 224,
           height: 224,
-          position: "relative",
           overflow: "hidden",
           backgroundColor: "grey.100",
           boxShadow: 3,
@@ -85,8 +80,6 @@ export function CharacterPreviewCard({
             component="img"
             src={character.image}
             alt={character.name}
-            width={224}
-            height={224}
             fetchPriority="high"
             sx={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
@@ -95,15 +88,14 @@ export function CharacterPreviewCard({
             component="img"
             src={placeholderImage}
             alt="Character placeholder"
-            width={224}
-            height={224}
             fetchPriority="high"
+            sx={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         )}
       </Box>
 
       <Stack spacing={1.25} sx={{ minHeight: 224 }}>
-        {showError && (
+        {!!error && (
           <Typography variant="h1" sx={{ color: "error.main" }}>
             {error?.message}
           </Typography>
@@ -111,9 +103,7 @@ export function CharacterPreviewCard({
 
         {character && (
           <Stack spacing={2.25}>
-            <Typography variant="h1" sx={{ color: "text.primary" }}>
-              {character.name}
-            </Typography>
+            <Typography variant="h1">{character.name}</Typography>
 
             {details.map((item) => {
               const isUnknown = item.value.trim().toLowerCase() === "unknown";

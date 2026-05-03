@@ -7,5 +7,5 @@ export const useCharacterQuery = (characterId: string) =>
     queryFn: () => getCharacterById(Number(characterId)),
     enabled: !!characterId,
     retry: false,
-    staleTime: Infinity,
+    staleTime: 60 * 1000,
   });
