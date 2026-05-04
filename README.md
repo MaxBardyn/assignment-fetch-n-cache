@@ -2,6 +2,8 @@
 
 A Rick and Morty character search app with smart caching built with React 19, TypeScript, and TanStack React Query v5.
 
+🔗 **Live demo:** [maxbardyn.github.io/assignment-fetch-n-cache](https://maxbardyn.github.io/assignment-fetch-n-cache/)
+
 ## Features
 
 - Search characters by numeric ID
